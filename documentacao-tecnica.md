@@ -12,7 +12,6 @@ Em caso de dúvidas, entrar em contato com: [rkwebanalytics@gmail.com](mailto:rk
 ## Índice
 - [Objetivo](#objetivo)
 - [Overview e Descrições Técnicas](#overview-e-descrições-técnicas)
-- [Dimensões Globais](#dimensões-globais)
 - [Especificação de Micro-conversões](#especificação-de-micro-conversões)
 - [Especificação de Conversões](#especificação-de-conversões)
 - [Considerações Finais](#considerações-finais)
