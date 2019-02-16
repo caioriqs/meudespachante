@@ -4,8 +4,8 @@
 <br />
 
 ## Implementação da Camada de dados
-Última atualização: 02/02/2019<br />
-Em caso de dúvidas, entrar em contato com: [silva.caiohenrique@gmail.com](mailto:silva.caiohenrique@gmail.com)
+Última atualização: 15/02/2019<br />
+Em caso de dúvidas, entrar em contato com: [rkwebanalytics@gmail.com](mailto:rkwebanalytics@gmail.com)
 
 <br />
 
