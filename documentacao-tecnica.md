@@ -358,10 +358,132 @@ Caso a informação solicitada não estiver disponível retornar 'nao_disponivel
 	dataLayer.push({
 		'event': 'conversion',
 		'eventCategory': 'meu-despachante:consultar',
-		'eventAction': 'sucesso:consulta
-'	});
+		'eventAction': 'sucesso:consulta'
+	});
 </script>
 ```
+
+<br />
+
+---
+
+### Especificação de E-commerce:
+
+**1 - Clique Continuar - Selecionar modo de pagamento:**<br />
+
+- **Quando:** Ao selecionar se irá pagar por "cartão", "boleto" ou "cartão + boleto";
+- **Onde:** No clique do botão "Continuar";
+
+```html
+<script>
+	dataLayer.push({
+		'event': 'event',
+		'eventCategory': 'meu-despachante:ecommerce',
+		'eventAction': 'clique:continuar:pagamento',
+		'eventLabel': 'modo-pagamento:[[tipo-pagamento]]'
+	});
+</script>
+```
+
+| Variável 				| Exemplo 								| Descrição																	|
+| :-------------------	| :----------------------------------	| :------------------------------------------------------------------------	|
+| [[tipo-pagamento]]	| 'cartao', 'boleto' e 'cartao+boleto'	| Retornar o modo de pagamento selecionado, ao clicar no botão "continuar"	|
+
+
+<br />
+
+###2 - Checkout:
+
+****<br />
+
+- **Onde:** O objeto javascript (dataLayer) abaixo deve ser disparado uma única vez no carregamento da páginas página de checkout. Deve existir um array de produto para cada tipo/categoria adicionada na compra/assinatura.
+
+```html
+<script>
+dataLayer.push({
+	'event': 'checkout',
+	'eventCategory': 'meu-despachante:ecommerce',
+	'eventAction': 'checkout-etapa:[[checkout-name]]',
+	'ecommerce': {
+		'checkout': {
+			'actionField': {'step': '[[passo-checkout]]'},
+			'products': [{
+				'name': '[[nome-debito]]',		//Nome ou ID do produto é obrigatório
+				'id': '[[id-consulta]]',
+				'price': '[[preco-debito]]',
+				'brand': 'meu-despachante',
+				'category': 'debitos',
+				'quantity': '[[quantidade-debitos]]'
+			}]
+		}
+	}
+});
+</script>
+```
+
+<br />
+
+| Nome 			| Variável 					| Exemplo 													| Descrição 							|
+| :------------	| :------------------------ | :-------------------------------------------------------	| :----------------------------------	|
+| eventAction 	| [[checkout-name]]			| 'modo-pagamento', 'dados-pessoais', 'dados-de-pagamento' 	| Nome do passo de checkout				|
+| actionField 	| [[passo-checkout]]		| 'step-1', 'step-2', 'step-3' 								| Passo atual do checkout 	 			|
+| name 			| [[nome-debito]] 			| 'ipva', 'documentacao' e etc				 				| Nome do debito 						|
+| id			| [[id-consulta]] 			| '1234567'													| ID de consulta 						|
+| price			| [[preco-debito]] 			| '1279.90'										 			| Preço do debito						|
+| quantity		| [[quantidade-debitos]]	| '1', '2' e etc											| Quantidade de debitos no checkout		|
+
+
+<br />
+
+###3 - Purchase:
+
+- **Onde:** O objeto javascript (dataLayer) abaixo deve ser disparado uma única vez no carregamento da página de transação, e se o usuário acessar novamente o link ou atualizar a página, o objeto não deve ser disparado novamente. Deve existir um array de produto para cada tipo/categoria adicionada na compra/assinatura.
+
+```html
+<script>
+dataLayer.push({
+	'event': 'purchase',
+	'eventCategory': 'meu-despachante:ecommerce',
+	'eventAction': 'sucesso:pagamento',
+	'ecommerce': {
+		'purchase': {
+			'actionField': {
+				'id': '[[id-transacao]]',	//ID da transação é obrigatório
+				'revenue': '[[valor-total-transacao]]',
+				'tax': '[[taxa-transacao]]'
+			},
+			'products': [{
+				'name': '[[nome-debito]]',	//Nome ou ID do produto é obrigatório
+				'id': '[[id-consulta]]',
+				'price': '[[preco-debito]]',
+				'brand': 'meu-despachante',
+				'category': 'debitos',
+				'quantity': '[[quantidade-debitos]]'
+			}]
+		}
+	}
+});
+</script>
+```
+
+*Descrição Purchase:*
+
+| Nome 			| Variável 					| Exemplo 				| Descrição 															|
+| :------------	| :------------------------	| :----------------		| :----------------------------------------------------------------		|
+| id 			| [[id-transacao]] 			| 'abc1234d56' 			| ID da Transação														|
+| revenue 		| [[valor-total-transacao]] | '1779.90'	 			| Valor total da transação incluindo taxas								|
+| tax 	 		| [[taxa-transacao]] 		| '123.90'	 			| Taxas de pagamento. Caso não exista, preecher com "nao_disponivel"	|
+
+<br />
+
+*Descrição Produtos:*
+
+| Nome 			| Variável 					| Exemplo 							| Descrição 								|
+| :------------	| :------------------------	| :------------------------ 		| :------------------------------------		|
+| name 			| [[nome-debito]] 			| 'ipva', 'documentacao' e etc		| Nome do debito 						|
+| id			| [[id-consulta]] 			| '1234567'							| ID de consulta 						|
+| price			| [[preco-debito]] 			| '1279.90'							| Preço do debito						|
+| quantity		| [[quantidade-debitos]]	| '1', '2' e etc					| Quantidade de debitos no checkout		|
 
 <br />
 
